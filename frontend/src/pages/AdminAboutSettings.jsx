@@ -12,7 +12,7 @@ const AdminAboutSettings = () => {
 
   const [formData, setFormData] = useState({
     name: '',
-    role: '',
+    role_title: '',
     github_url: '',
     instagram_url: '',
     facebook_url: '',
@@ -44,7 +44,7 @@ const AdminAboutSettings = () => {
       setEditingId(dev.id);
       setFormData({
         name: dev.name,
-        role: dev.role,
+        role_title: dev.role_title || '',
         github_url: dev.github_url || '',
         instagram_url: dev.instagram_url || '',
         facebook_url: dev.facebook_url || '',
@@ -54,7 +54,7 @@ const AdminAboutSettings = () => {
       setEditingId(null);
       setFormData({
         name: '',
-        role: '',
+        role_title: '',
         github_url: '',
         instagram_url: '',
         facebook_url: '',
@@ -141,12 +141,12 @@ const AdminAboutSettings = () => {
 
               <div className="flex flex-col items-center text-center">
                 <img
-                  src={dev.photo_url ? `${import.meta.env.PROD ? '' : 'http://localhost:5000'}${dev.photo_url}` : `https://ui-avatars.com/api/?name=${encodeURIComponent(dev.name)}&background=random`}
+                  src={dev.photo ? `${import.meta.env.PROD ? '' : 'http://localhost:5000'}${dev.photo}` : `https://ui-avatars.com/api/?name=${encodeURIComponent(dev.name)}&background=random`}
                   alt={dev.name}
                   className="w-24 h-24 rounded-full border-4 border-slate-50 dark:border-slate-700 object-cover mb-4"
                 />
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1">{dev.name}</h3>
-                <p className="text-indigo-600 dark:text-indigo-400 text-sm font-semibold mb-4">{dev.role}</p>
+                <p className="text-indigo-600 dark:text-indigo-400 text-sm font-semibold mb-4">{dev.role_title}</p>
                 <p className="text-slate-500 dark:text-slate-400 text-sm mb-4 line-clamp-3">{dev.description}</p>
                 <div className="flex gap-4 mt-auto w-full justify-center pt-4 border-t border-slate-100 dark:border-slate-700">
                   {dev.github_url && <a href={dev.github_url} target="_blank" rel="noreferrer" className="text-slate-400 hover:text-slate-900 dark:hover:text-white text-sm font-medium">GitHub</a>}
@@ -190,7 +190,7 @@ const AdminAboutSettings = () => {
 
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Peran / Jabatan</label>
-                <input required type="text" value={formData.role} onChange={e => setFormData({ ...formData, role: e.target.value })} className="w-full px-4 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 text-slate-900 dark:text-white" placeholder="misal: Full Stack Developer" />
+                <input required type="text" value={formData.role_title} onChange={e => setFormData({ ...formData, role_title: e.target.value })} className="w-full px-4 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 text-slate-900 dark:text-white" placeholder="misal: Full Stack Developer" />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
