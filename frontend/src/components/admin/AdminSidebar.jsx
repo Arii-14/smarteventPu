@@ -82,7 +82,7 @@ const AdminSidebar = ({ isOpen, onClose, collapsed, onToggleCollapse }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
+            className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[60] lg:hidden"
             onClick={onClose}
           />
         )}
@@ -91,26 +91,26 @@ const AdminSidebar = ({ isOpen, onClose, collapsed, onToggleCollapse }) => {
       {/* Sidebar */}
       <aside
         className={`
-          fixed lg:static inset-y-0 left-0 z-50 flex flex-col
+          fixed lg:static inset-y-0 left-0 z-[70] flex flex-col
           transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]
           ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
-          ${collapsed ? 'w-[72px]' : 'w-[260px]'}
-          bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl
+          ${collapsed ? 'w-[80px]' : 'w-[280px]'}
+          bg-white/95 dark:bg-slate-900/95 backdrop-blur-2xl
           border-r border-slate-200/70 dark:border-slate-800/70
-          shadow-lg lg:shadow-none
+          shadow-2xl lg:shadow-none
         `}
       >
         {/* Logo */}
-        <div className={`flex items-center h-16 shrink-0 border-b border-slate-200/70 dark:border-slate-800/70 ${collapsed ? 'justify-center px-2' : 'justify-between px-4'}`}>
+        <div className={`flex items-center h-20 shrink-0 border-b border-slate-200/70 dark:border-slate-800/70 ${collapsed ? 'justify-center px-2' : 'justify-between px-6'}`}>
           {!collapsed && (
-            <Link to="/admin" className="flex items-center gap-2.5 group" onClick={() => handleNavClick('/admin')}>
-              <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 via-violet-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/25 group-hover:shadow-indigo-500/40 transition-shadow">
-                <Sparkles size={16} className="text-white" />
-                <div className="absolute inset-0 rounded-xl bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <Link to="/admin" className="flex items-center gap-3 group" onClick={() => handleNavClick('/admin')}>
+              <div className="relative w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-500 via-violet-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/25 group-hover:shadow-indigo-500/40 transition-shadow">
+                <Sparkles size={18} className="text-white" />
+                <div className="absolute inset-0 rounded-2xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
               <div className="leading-tight">
-                <span className="font-bold text-[15px] text-slate-900 dark:text-white tracking-tight">SmartEvent</span>
-                <span className="text-[10px] font-semibold text-indigo-500 dark:text-indigo-400 block -mt-0.5 tracking-wide uppercase">Panel Admin</span>
+                <span className="font-extrabold text-[17px] text-slate-900 dark:text-white tracking-tight">SmartEvent</span>
+                <span className="text-[11px] font-bold text-indigo-500 dark:text-indigo-400 block -mt-0.5 tracking-wider uppercase">Panel Admin</span>
               </div>
             </Link>
           )}
