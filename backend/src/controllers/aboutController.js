@@ -2,10 +2,12 @@ const pool = require('../config/db');
 
 const getAll = async (req, res) => {
   try {
-    // Exclude BLOB
     const [rows] = await pool.query('SELECT id, name, role_title, description, photo, github_url, instagram_url, facebook_url, whatsapp_number, display_order, created_at FROM about_developers ORDER BY display_order ASC, id ASC');
     return res.json(rows);
-  } catch (err) { return res.status(500).json({ message: 'Terjadi kesalahan server.' }); }
+  } catch (err) {
+    console.error('[ABOUT] getAll error:', err.message);
+    return res.status(500).json({ message: 'Gagal mengambil data pengembang.' });
+  }
 };
 
 const create = async (req, res) => {
@@ -30,7 +32,10 @@ const create = async (req, res) => {
     }
 
     return res.status(201).json({ id: newId, name, photo: photoUrl });
-  } catch (err) { return res.status(500).json({ message: 'Terjadi kesalahan server.' }); }
+  } catch (err) {
+    console.error('[ABOUT] create error:', err.message);
+    return res.status(500).json({ message: 'Gagal menambah data pengembang.' });
+  }
 };
 
 const update = async (req, res) => {
