@@ -58,7 +58,7 @@ export default function QRScannerModal({ eventId, eventTitle, onClose }) {
       html5QrRef.current = new Html5Qrcode('qr-reader');
       await html5QrRef.current.start(
         selectedCamera,
-        { fps: 15, qrbox: { width: 300, height: 300 }, aspectRatio: 1.0 },
+        { fps: 30, qrbox: { width: 300, height: 300 }, aspectRatio: 1.0 },
         onScanSuccess,
         () => {} // ignore decode errors silently
       );
@@ -107,7 +107,7 @@ export default function QRScannerModal({ eventId, eventTitle, onClose }) {
     cooldownRef.current = false;
     setResult(null);
     setScanState(SCAN_STATES.IDLE);
-    setTimeout(() => startScanner(), 300);
+    setTimeout(() => startScanner(), 50);
   };
 
   const getInitials = (name) => {
