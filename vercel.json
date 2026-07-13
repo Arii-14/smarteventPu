@@ -23,7 +23,7 @@
       "dest": "backend/index.js"
     },
     {
-      "src": "/(.*\.(js|css|png|jpg|jpeg|svg|gif|ico|json|woff|woff2|ttf|eot))$",
+      "src": "/(.*\\.(js|css|png|jpg|jpeg|svg|gif|ico|json|woff|woff2|ttf|eot))$",
       "dest": "frontend/$1"
     },
     {
