@@ -9,6 +9,7 @@ import AdminLayout from './components/AdminLayout';
 import AdminDashboard from './pages/AdminDashboard';
 import EventManagement from './pages/EventManagement';
 import CreateEvent from './pages/CreateEvent';
+import EditEvent from './pages/EditEvent';
 import About from './pages/About';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -113,6 +114,7 @@ function App() {
                   <Route index element={<AdminDashboard />} />
                   <Route path="events" element={<EventManagement />} />
                   <Route path="events/create" element={<CreateEvent />} />
+                  <Route path="events/edit/:id" element={<EditEvent />} />
                   
                   {/* New Admin Pages */}
                   <Route path="categories" element={<AdminCategories />} />
