@@ -50,6 +50,32 @@ app.use(cors({
 app.use(express.json({ limit: '20mb' }));
 app.use(express.urlencoded({ extended: true, limit: '20mb' }));
 
+// ── DB Init (Production / Vercel) ─────────────────────────────────────────────
+// Di production (Vercel): mulai init DB segera saat module di-load (cold start)
+// Gate middleware dipasang di sini (sebelum routes) agar request tertahan sampai DB siap
+let dbReady;
+if (process.env.NODE_ENV === 'production') {
+  dbReady = initDB().then(() => {
+    console.log('[DB] Initialized on Vercel cold start');
+    return true;
+  }).catch(err => {
+    console.error('[DB] Init error on cold start:', err.message);
+    return false;
+  });
+
+  // Gate: tahan request sampai DB siap (max 10 detik) — HARUS sebelum routes!
+  app.use(async (req, res, next) => {
+    const ready = await Promise.race([
+      dbReady,
+      new Promise(resolve => setTimeout(() => resolve(false), 10000)),
+    ]);
+    if (!ready) {
+      return res.status(503).json({ message: 'Database belum siap, coba lagi sebentar.' });
+    }
+    next();
+  });
+}
+
 // ── API Routes ────────────────────────────────────────────────────────────────
 app.use('/api/auth',          authRoutes);
 app.use('/api/users',         userRoutes);
@@ -92,27 +118,6 @@ if (process.env.NODE_ENV !== 'production') {
     }
   };
   start();
-} else {
-  // Di Vercel: init DB saat cold start, tunggu selesai sebelum export
-  const dbReady = initDB().then(() => {
-    console.log('[DB] Initialized on Vercel cold start');
-    return true;
-  }).catch(err => {
-    console.error('[DB] Init error on cold start:', err.message);
-    return false;
-  });
-
-  // Gate: tahan request sampai DB siap (max 10 detik)
-  app.use(async (req, res, next) => {
-    const ready = await Promise.race([
-      dbReady,
-      new Promise(resolve => setTimeout(() => resolve(false), 10000)),
-    ]);
-    if (!ready) {
-      return res.status(503).json({ message: 'Database belum siap, coba lagi sebentar.' });
-    }
-    next();
-  });
 }
 
 module.exports = app;
