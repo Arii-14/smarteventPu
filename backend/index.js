@@ -93,11 +93,25 @@ if (process.env.NODE_ENV !== 'production') {
   };
   start();
 } else {
-  // Di Vercel: init DB saat cold start, lalu export app
-  initDB().then(() => {
+  // Di Vercel: init DB saat cold start, tunggu selesai sebelum export
+  const dbReady = initDB().then(() => {
     console.log('[DB] Initialized on Vercel cold start');
+    return true;
   }).catch(err => {
     console.error('[DB] Init error on cold start:', err.message);
+    return false;
+  });
+
+  // Gate: tahan request sampai DB siap (max 10 detik)
+  app.use(async (req, res, next) => {
+    const ready = await Promise.race([
+      dbReady,
+      new Promise(resolve => setTimeout(() => resolve(false), 10000)),
+    ]);
+    if (!ready) {
+      return res.status(503).json({ message: 'Database belum siap, coba lagi sebentar.' });
+    }
+    next();
   });
 }
 
