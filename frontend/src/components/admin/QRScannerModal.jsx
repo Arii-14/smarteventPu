@@ -58,7 +58,7 @@ export default function QRScannerModal({ eventId, eventTitle, onClose }) {
       html5QrRef.current = new Html5Qrcode('qr-reader');
       await html5QrRef.current.start(
         selectedCamera,
-        { fps: 10, qrbox: { width: 240, height: 240 } },
+        { fps: 15, qrbox: { width: 300, height: 300 }, aspectRatio: 1.0 },
         onScanSuccess,
         () => {} // ignore decode errors silently
       );
