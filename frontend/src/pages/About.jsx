@@ -366,14 +366,14 @@ const About = () => {
                     <div className="relative mb-8 group">
                       <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500 to-sky-500 rounded-full blur-md opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500"></div>
                       <img 
-                        src={dev.photo_url ? `${import.meta.env.PROD ? '' : 'http://localhost:5000'}${dev.photo_url}` : `https://ui-avatars.com/api/?name=${encodeURIComponent(dev.name)}&background=random`} 
+                        src={dev.photo ? `${import.meta.env.PROD ? '' : 'http://localhost:5000'}${dev.photo}` : `https://ui-avatars.com/api/?name=${encodeURIComponent(dev.name)}&background=random`} 
                         alt={dev.name}
                         className="w-32 h-32 rounded-full object-cover border-4 border-white dark:border-slate-800 shadow-xl relative z-10" 
                       />
                     </div>
 
                     <h3 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-2">{dev.name}</h3>
-                    <p className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-sky-500 font-bold text-lg mb-6">{dev.role}</p>
+                    <p className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-sky-500 font-bold text-lg mb-6">{dev.role_title}</p>
                     <p className="text-slate-600 dark:text-slate-400 leading-relaxed max-w-lg mb-10 text-lg">
                       {dev.description}
                     </p>
